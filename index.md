@@ -4,7 +4,7 @@ title: Cybersecurity Portfolio
 
 # Cybersecurity Portfolio
 
-I document my approach to security investigations, from assessing the evidence to deciding what to do next.
+My collection of cybersecurity write-ups, technical investigations, research, and practical projects.
 
 {% include portfolio-list.html section="writeups" heading="Write-ups" %}
 
