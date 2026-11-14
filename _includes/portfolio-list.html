@@ -1,0 +1,16 @@
+{% assign entries = site.pages | where: 'portfolio_section', include.section | sort_natural: 'title' %}
+{% if entries.size > 0 %}
+<section class="portfolio-section" aria-labelledby="{{ include.section }}">
+  <h2 id="{{ include.section }}">{{ include.heading | escape }}</h2>
+  <ul>
+    {% for entry in entries %}
+    <li>
+      <a href="{{ entry.url | relative_url }}">{{ entry.title | escape }}</a>
+      {% if entry.description %}
+      <p>{{ entry.description | escape }}</p>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}

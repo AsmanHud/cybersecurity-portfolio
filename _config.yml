@@ -1,0 +1,26 @@
+title: Cybersecurity Portfolio
+description: SOC investigations and independent cybersecurity projects
+lang: en
+theme: jekyll-theme-primer
+repository: AsmanHud/cybersecurity-portfolio
+markdown: kramdown
+kramdown:
+  input: GFM
+exclude:
+  - scripts
+defaults:
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: portfolio
+  - scope:
+      path: writeups
+      type: pages
+    values:
+      portfolio_section: writeups
+  - scope:
+      path: projects
+      type: pages
+    values:
+      portfolio_section: projects

@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% seo %}
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  </head>
+  <body class="portfolio">
+    <header class="site-header">
+      <a href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
+    </header>
+    <main class="markdown-body" id="main">
+      {{ content }}
+    </main>
+    <footer class="site-footer">
+      <a href="https://github.com/{{ site.repository }}">Source on GitHub</a>
+    </footer>
+  </body>
+</html>

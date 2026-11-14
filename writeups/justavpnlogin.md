@@ -1,8 +1,14 @@
+---
+title: Just a VPN Login
+description: A TryHackMe SOC investigation into an unusual VPN login and a suspicious download.
+permalink: /writeups/justavpnlogin/
+---
+
 # Write-up: Just a VPN Login
 
 Platform: TryHackMe.
 
-Room Link: https://tryhackme.com/room/justavpnlogin
+Room Link: <https://tryhackme.com/room/justavpnlogin>
 
 Just a VPN Login is a SOC investigation scenario challenge on TryHackMe. This document serves as my write-up for this challenge.
 
@@ -148,19 +154,19 @@ I also got introduced to multiple security concepts along the way, like why a th
 
 ## References
 
-TryHackMe room and TryDetectThis platform access: https://tryhackme.com/room/justavpnlogin
+TryHackMe room and TryDetectThis platform access: <https://tryhackme.com/room/justavpnlogin>
 
-A small Python script I wrote to count the number of SAN extension domains: [../scripts/justavpnlogin-countsan.py](../scripts/justavpnlogin-countsan.py)
+A small Python script I wrote to count the number of SAN extension domains: [../scripts/justavpnlogin-countsan.py](https://github.com/AsmanHud/cybersecurity-portfolio/blob/main/scripts/justavpnlogin-countsan.py)
 
-VPN Tag possible explanation: https://chatgpt.com/s/t_6af71cd3f2b081918c9a733b19573676
+VPN Tag possible explanation: <https://chatgpt.com/s/t_6af71cd3f2b081918c9a733b19573676>
 
-What is a SAN?: https://www.entrust.com/blog/2019/03/what-is-a-san-and-how-is-it-used
+What is a SAN?: <https://www.entrust.com/blog/2019/03/what-is-a-san-and-how-is-it-used>
 
-SSL/TLS certificate pivoting: https://gopivot.ing/artifacts/tls-certificate
+SSL/TLS certificate pivoting: <https://gopivot.ing/artifacts/tls-certificate>
 
-Lumma Stealer: https://www.huntress.com/threat-library/malware/lumma-stealer
+Lumma Stealer: <https://www.huntress.com/threat-library/malware/lumma-stealer>
 
-Lumma affiliates report (also available through the TryDetectThis platform): https://www.recordedfuture.com/research/behind-the-curtain-how-lumma-affiliates-operate
+Lumma affiliates report (also available through the TryDetectThis platform): <https://www.recordedfuture.com/research/behind-the-curtain-how-lumma-affiliates-operate>
 
 [^1]: We do not have access to the actual **SOC dashboard** in this challenge, all of the initial details are gathered from the scenario introduction text.
 

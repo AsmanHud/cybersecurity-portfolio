@@ -1,0 +1,57 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.portfolio {
+  box-sizing: border-box;
+  max-width: 47rem;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2rem);
+  color: #24292f;
+  background: #fff;
+}
+
+.site-header,
+.site-footer {
+  padding: 1.25rem 0;
+  font-size: .875rem;
+}
+
+.site-header {
+  border-bottom: 1px solid #d8dee4;
+  font-weight: 600;
+}
+
+.site-footer {
+  border-top: 1px solid #d8dee4;
+}
+
+.site-header a,
+.site-footer a {
+  color: #4b5563;
+}
+
+.portfolio .markdown-body {
+  padding: clamp(1.75rem, 6vw, 3rem) 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.portfolio .markdown-body pre {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-wrap: normal;
+  white-space: pre;
+}
+
+.portfolio .markdown-body pre code {
+  white-space: inherit;
+  word-break: normal;
+}
+
+.portfolio-section li p {
+  margin: .25rem 0 .75rem;
+  color: #4b5563;
+}
