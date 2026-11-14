@@ -4,7 +4,9 @@ Platform: TryHackMe.
 
 Room Link: https://tryhackme.com/room/justavpnlogin
 
-Just a VPN Login is a SOC investigation scenario challenge on TryHackMe. This document serves as my write-up for this challenge. No questions and almost no answers that are given in the room are present in this write-up.
+Just a VPN Login is a SOC investigation scenario challenge on TryHackMe. This document serves as my write-up for this challenge.
+
+This write-up focuses on the investigative process, analytical reasoning, and lessons learned from the scenario rather than providing a question-by-question solution. Although it does not explicitly list the challenge questions or their answers, it contains investigative findings that may indirectly reveal some of the answers. Readers are encouraged to attempt the challenge independently before reading further.
 
 ## Introduction and Scenario
 
@@ -46,7 +48,7 @@ There is no explicit timeline given for this scenario, but I presume that this s
 
 The first part starts with only the internal alert (of which we only get the alert title + SOC handover note). My initial thought is that the login was flagged as unusual because Singapore is not a usual location for Susan to log in. Furthermore, the SOC handover note tells us that Susan is attending a conference in Singapore, so the login appers to be legitimate at first.
 
-However, as SOC analysts, we never operate on presumptions - only on facts. Therefore, we must verify the login using TryDetectThis.
+However, as SOC analysts, we must remain vigilant and follow SOC procedures diligently. We must verify the login using TryDetectThis.
 
 The second part of the introduction gives away the main conclusion of the first part of this scenario - after our verification, we will come to realise that this login IP looks more suspicious than we initially thought. We will inform our teammates about our findings, and they will reach out to Susan to confirm whether she logged in or not.
 
@@ -110,27 +112,27 @@ Attackers sometimes operate many domains as part of the same malicious infrastru
 
 ## Findings and Risk Assessment
 
-We presume that the suspicious file in question was in fact installed, by Susan on her host. This file's hash was ran against TryDetectThis. The file hash report surfaced multiple indicators of this file being an infostealing malware called Lumma Stealer.
+An unusual login to company's network was detected by our SOC dashboard from Susan's account. Susan denied logging in, which strongly indicates that the login was unauthorized. The source IP address was ran against TryDetectThis, revealing multiple indicators of it being associated with VPN infrastructure, possibly being used as a VPN exit IP address.
 
-An unusual login to company's network was detected by our SOC dashboard. The source IP address was ran against TryDetectThis, revealing multiple indicators of it being associated with VPN infrastructure, possibly being used as a VPN exit IP address. Susan further confirmed the illegitimacy of the source IP address, as she denied logging in herself.
+Susan also recalls installing a suspicious file on her host. The file's hash was ran against TryDetectThis. The file hash report surfaced multiple indicators of this file being an infostealing malware called Lumma Stealer.
 
 A separate Lumma Stealer threat intelligence report by Insikt Group, available within the file hash report on TryDetectThis, outlines that the usage of VPN services for identity concealment is a common behavior pattern for Lumma affiliates.
 
 According to the report, Lumma affiliates operate within a vast interconnected information-stealing ecosystem. It is probable that we have come across a part of that network as we discovered the numerous domain names linked to the malicious domain that was in contact with our investigated executable.
 
-If Susan denies logging in to the company VPN near the time of login detection, then someone else logged in using Susan's credentials. Combined with the infostealing malware present on Susan's machine, it is reasonable to assume that Susan's credentials were stolen by the installed malware. It is also reasonable to assume that the source IP address does not represent the real party that logged in using Susan's credentials, but a VPN service. [^9]
+Since Susan denies logging in to the company VPN, then we strongly suspect someone other than Susan performing the login. Combined with the infostealing malware evidence that we obtained, it is reasonable to assume that Susan's credentials were stolen by the installed malware. It is also reasonable to assume that the source IP address does not represent the real party that logged in using Susan's credentials, but a VPN service. [^9]
 
 If we are using a threat level assessment system where there are four levels from Low to Critical, then this threat deserves a **Medium** to **High** rating, probably leaning towards High. We have strong evidence of an unauthorized login to our company VPN. We also have sufficient evidence of infostealing malware being present on an employee's machine. However, if the access of employees is properly scoped and zero-trust is properly implemented, then just the unauthorized login of a regular Marketing employee alone might be insufficient to cause significant harm to the company.
 
 ## Recommended Incident Response
 
-Rotate Susan's credentials. After the rotation, terminate Susan's saved/active session, so the next log in initiates a fresh session. Run a deep scan on her machine to get rid of any installed malware.
+Immediate actions: Escalate the incident, isolate Susan's potentially compromised machine, revoke active sessions and rotate potentially compromised credentials from a trusted device.
 
-Investigate the logs associated with Susan's session in the time period between the detected unauthorized login and when we terminated her session, to understand the activity of the adversary on Susan's account. Destroyed or altered contents could be attempted to be restored from backups. Any sensitive data that was accessed by the adversary should be considered no longer confidential. Newly created contents should be cleaned up.
+Further investigation: Investigate the logs associated with Susan's session, as well as other accounts potentially compromised by the infostealer, to understand the activity of the adversary within the company infrastructure. Destroyed or altered contents could be attempted to be restored from backups. Any sensitive data that was accessed by the adversary should be treated as potentially compromised. Newly created contents should be cleaned up.
 
-After the appropriate incident response steps are taken, Susan can resume normal work with the new credentials.
+Eradication and recovery: Remove malware or reimage the affected endpoint if necessary. Restore affected resources and verify that the machine is safe before allowing Susan to resume work.
 
-An employee training should be planned raising the basic cyber security awareness. Then, I would propose enforcing two factor authentication to access the company network. This way, even if the adversary gets hold of employee credentials, it would be insufficient to log in. Employee machines should be running proper AV software, particularly with access to the TryDetectThis database and automatic quarantine feature for known threats.
+Preventive measures: An employee training should be planned raising the basic cyber security awareness. Then, I would propose enforcing two factor authentication to access the company network, given our assumption that Susan's credentials might have been stolen. Employee machines should be running endpoint protection software like an antivirus, particularly integrated with the TryDetectThis database and automatic quarantine feature for known threats.
 
 ## Lessons Learned
 
@@ -176,4 +178,4 @@ Lumma affiliates report (also available through the TryDetectThis platform): htt
 
 [^8]: The shared certificate is evidence of a possible infrastructure relationship, but does not independently establish that every listed domain is malicious, nor does it establish existence of a malicious campaign.
 
-[^9]: These assumptions do not represent confirmed events, only assumptions of what might have happened based on the available evidence. We do not have definitive confirmation of whether Lumma Stealer was successfully installed and executed on Susan's machine, or whether any credentials were actually stolen.
+[^9]: These assumptions do not represent confirmed events, only assumptions of what might have happened based on the available evidence. We do not have definitive confirmation of whether Lumma Stealer was successfully installed and executed on Susan's machine, whether any credentials were actually stolen, or whether an adversary actually used a VPN service to conceal their identity.
